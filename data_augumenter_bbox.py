@@ -183,6 +183,8 @@ for idx in trange(len(img_path), desc='Augumenting Dataset'):
     # remove the additional root added by the library
     dom = dom.replace('<root>','')
     dom = dom.replace('</root>','')
+    dom = dom.replace('<item>','')
+    dom = dom.replace('</item>','')
     # write the pretified string
     xmlfile = open(op_img_path + "aug_{}.xml".format(file_name[:-4]), "w") 
     xmlfile.write(dom) 
