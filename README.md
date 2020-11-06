@@ -20,7 +20,7 @@ Directory containing augumented image and xml files
 
 ### Note:
 _____
-Repo takes about 1~2 seconds to read and write one augumented image and file
+Repo takes about 1 second(s) to read and write one augumented image and file, for fast processing comment the plotting lines in the code.
 
 ## Follwing are some examples of input images with their b_boxes drawn on them and their corresponding augumented outputs.
 
