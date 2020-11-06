@@ -161,13 +161,13 @@ for idx in trange(len(img_path), desc='Augumenting Dataset'):
         try:
             obj_boxnnames[i]['bndbox']['xmin'] = str(int(bbs_aug[i][0][0]))
             obj_boxnnames[i]['bndbox']['ymin'] = str(int(bbs_aug[i][0][1]))
-            obj_boxnnames[i]['bndbox']['xmax'] = str(int(bbs_aug[0][1][0]))
-            obj_boxnnames[i]['bndbox']['ymax'] = str(int(bbs_aug[0][1][1]))
+            obj_boxnnames[i]['bndbox']['xmax'] = str(int(bbs_aug[i][1][0]))
+            obj_boxnnames[i]['bndbox']['ymax'] = str(int(bbs_aug[i][1][1]))
         except KeyError:
             obj_boxnnames['bndbox']['xmin'] = str(int(bbs_aug[i][0][0]))
             obj_boxnnames['bndbox']['ymin'] = str(int(bbs_aug[i][0][1]))
-            obj_boxnnames['bndbox']['xmax'] = str(int(bbs_aug[0][1][0]))
-            obj_boxnnames['bndbox']['ymax'] = str(int(bbs_aug[0][1][1]))
+            obj_boxnnames['bndbox']['xmax'] = str(int(bbs_aug[i][1][0]))
+            obj_boxnnames['bndbox']['ymax'] = str(int(bbs_aug[i][1][1]))
         
     '''
     Now write the new augmented xml file and image
@@ -183,8 +183,10 @@ for idx in trange(len(img_path), desc='Augumenting Dataset'):
     # remove the additional root added by the library
     dom = dom.replace('<root>','')
     dom = dom.replace('</root>','')
-    dom = dom.replace('<item>','')
-    dom = dom.replace('</item>','')
+    dom = dom.replace('<object>','')
+    dom = dom.replace('</object>','')
+    dom = dom.replace('<item>','<object>')
+    dom = dom.replace('</item>','</object>')
     # write the pretified string
     xmlfile = open(op_img_path + "aug_{}.xml".format(file_name[:-4]), "w") 
     xmlfile.write(dom) 
