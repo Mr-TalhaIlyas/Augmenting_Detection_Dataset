@@ -1,6 +1,6 @@
 # Augumentation for Detection Dataset
 
-This repo utilizes **imageaug** library to augument the object detection dataset.
+This repo utilizes [**imageaug**](https://imgaug.readthedocs.io/en/latest/source/examples_bounding_boxes.html) library to augument the object detection dataset.
 
 ## Input
 
