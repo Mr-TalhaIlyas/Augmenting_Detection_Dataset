@@ -168,7 +168,11 @@ for idx in trange(len(img_path), desc='Augumenting Dataset'):
             obj_boxnnames['bndbox']['ymin'] = str(int(bbs_aug[i][0][1]))
             obj_boxnnames['bndbox']['xmax'] = str(int(bbs_aug[i][1][0]))
             obj_boxnnames['bndbox']['ymax'] = str(int(bbs_aug[i][1][1]))
-        
+    '''
+    Delete the excess objects which were in the original dict, because we are 
+    using the orginal dict to rewrite the annotations
+    '''
+    del(full_dict['annotation']['object'][len(bbs_aug):])    
     '''
     Now write the new augmented xml file and image
     '''
