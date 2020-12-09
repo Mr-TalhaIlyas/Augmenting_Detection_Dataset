@@ -36,14 +36,14 @@ def remove_duplicate(s):
     return y
 
 #%
-img_path = glob.glob(os.path.join('D:/Anaconda/Datasets/Breast_Biopsy/xml_boxes/img/*.jpg')) 
-xml_path = glob.glob(os.path.join('D:/Anaconda/Datasets/Breast_Biopsy/xml_boxes/xml_new/*.xml'))
+img_path = glob.glob(os.path.join('../Datasets/Breast_Biopsy/xml_boxes/img/*.jpg')) 
+xml_path = glob.glob(os.path.join('../Datasets/Breast_Biopsy/xml_boxes/xml_new/*.xml'))
 
 print('Images Found = ', len(img_path))
 print('Annot. Found = ', len(xml_path))
 
-op_img_path = 'D:/Anaconda/Datasets/Breast_Biopsy/aug_data/img/'
-op_xml_path = 'D:/Anaconda/Datasets/Breast_Biopsy/aug_data/xml/'
+op_img_path = '../Breast_Biopsy/aug_data/img/'
+op_xml_path = '../Breast_Biopsy/aug_data/xml/'
 
 #%%
 print('='*60)
