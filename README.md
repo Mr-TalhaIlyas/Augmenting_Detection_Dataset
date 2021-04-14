@@ -1,14 +1,49 @@
-# Augumentation for Detection Dataset
+# Augmentation for Detection Dataset
 
 This repo utilizes [**imageaug**](https://imgaug.readthedocs.io/en/latest/source/examples_bounding_boxes.html) library to augument the object detection dataset.
 
-## Input
+## Usage
 
-Directory containing image and xml files
+```
+python \path_2_script\bb_aug.py -i=C:\Users\Talha\Desktop\new\in -o=C:\Users\Talha\Desktop\new\op -c blossom_end_rot graymold powdery_mildew spider_mite spotting_disease snails_and_slugs -iter=3
+```
+For help
+```
+python D:\path 2 where file is located\bb_aug.py -h
 
+usage: bb_aug.py [-h] [-i IMG_PATH] [-o OP_IMG_PATH]
+                 [-c CLASSES [CLASSES ...]] [--xml_path XML_PATH]
+                 [--op_xml_path OP_XML_PATH] [-iter ITERATIONS]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IMG_PATH, --img_path IMG_PATH
+                        path to read images.
+  -o OP_IMG_PATH, --op_img_path OP_IMG_PATH
+                        path to write images.
+  -c CLASSES [CLASSES ...], --classes CLASSES [CLASSES ...]
+                        a list containing names of all classes in dataset
+  --xml_path XML_PATH   path to read xml files if None then same as img_path.
+  --op_xml_path OP_XML_PATH
+                        path to write xml files if None then same as
+                        op_img_path.
+  -iter ITERATIONS, --iterations ITERATIONS
+                        Number of times to augment each image e.g. if input
+                        dir has 2 images and iterations=4 then op dir will
+                        have 8 images, default is 1.
+```
 ## Output
-
-Directory containing augumented image and xml files
+```
+============================================================
+Images Found =  3
+Annot. Found =  3
+------------------------------------------------------------
+Augmneted Files =  9
+============================================================
+Augumenting Dataset (iteration 1of3): 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:03<00:00,  1.00s/it]
+Augumenting Dataset (iteration 2of3): 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:03<00:00,  1.23s/it]
+Augumenting Dataset (iteration 3of3): 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:02<00:00,  1.40it/s]
+```
 
 ## Dependency (Libraries)
 
