@@ -5,7 +5,7 @@ This repo utilizes [**imageaug**](https://imgaug.readthedocs.io/en/latest/source
 ## Usage
 
 ```
-python \path_2_script\bb_aug.py -i=C:\Users\Talha\Desktop\new\in -o=C:\Users\Talha\Desktop\new\op -c blossom_end_rot graymold powdery_mildew spider_mite spotting_disease snails_and_slugs -iter=3
+python \path_2_script\bb_aug.py -i=C:\Users\Desktop\new\in -o=C:\Users\Desktop\new\op -c train bus cycle car -iter=3
 ```
 For help
 ```
