@@ -241,7 +241,7 @@ for p in range(iterations): # how many times to apply random augmentations
         #full_dict = xmltodict.parse(open( filepath , 'rb' ))
         
         obj_boxnnames = full_dict[ 'annotation' ][ 'object' ] # names and boxes
-        full_dict[ 'annotation' ][ 'filename' ] = str("{}_aug_{}.jpg".format(p,file_name[:-4]))
+        full_dict[ 'annotation' ][ 'filename' ] = str("{}_aug_{}".format(p,file_name))
         full_dict[ 'annotation' ][ 'path' ] = str('None')
         
         for i in range(len(bbs_aug)):
