@@ -2,17 +2,38 @@ import argparse, os
 '''
 Usage:
     
-
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IMG_PATH, --img_path IMG_PATH
+                        path to read images.
+  -o OP_IMG_PATH, --op_img_path OP_IMG_PATH
+                        path to write images.
+  -c CLASSES [CLASSES ...], --classes CLASSES [CLASSES ...]
+                        a list containing names of all classes in dataset
+  --xml_path XML_PATH   path to read xml files if None then same as img_path.
+  --op_xml_path OP_XML_PATH
+                        path to write xml files if None then same as
+                        op_img_path.
+  -iter ITERATIONS, --iterations ITERATIONS
+                        Number of times to augment each image e.g. if input
+                        dir has 2 images and iterations=4 then op dir will
+                        have 8 images, default is 1.
 '''
 parser = argparse.ArgumentParser()
 # positional required args
-parser.add_argument("-i", "--img_path",  help="path to read images.", type=str)
-parser.add_argument("-o", "--op_img_path",  help="path to write images.", type=str)
-parser.add_argument("-c", "--classes", nargs="+", help="a list containing names of all classes in dataset")
+parser.add_argument("-i", "--img_path", 
+                    help="path to read images.", type=str)
+parser.add_argument("-o", "--op_img_path", 
+                    help="path to write images.", type=str)
+parser.add_argument("-c", "--classes", nargs="+",
+                    help="a list containing names of all classes in dataset")
 #optional args
-parser.add_argument("--xml_path",  help="path to read xml files if None then same as img_path.")
-parser.add_argument("--op_xml_path",  help="path to write xml files if None then same as op_img_path.")
-parser.add_argument("-iter", "--iterations",  help="Number of times to augment each image \
+parser.add_argument("--xml_path",  
+                    help="path to read xml files if None then same as img_path.")
+parser.add_argument("--op_xml_path",  
+                    help="path to write xml files if None then same as op_img_path.")
+parser.add_argument("-iter", "--iterations",  
+                    help="Number of times to augment each image \
                     e.g. if input dir has 2 images and iterations=4 then op dir \
                     will have 8 images, default is 1.", type=int, default=1)
 
@@ -92,9 +113,6 @@ def add_to_contrast(images, random_state, parents, hooks):
     ret = np.clip(img, 0, 255)
     ret = ret.astype(np.uint8)
     return ret
-# randomly choose positions in image
-positions = ['center','left-top', 'left-center', 'left-bottom', 'center-top',
-             'center-bottom', 'right-top', 'right-center', 'right-bottom']
 
 img_path = glob.glob(os.path.join(img_path, '*.jpg')) + \
             glob.glob(os.path.join(img_path, '*.png')) 
@@ -110,24 +128,26 @@ print('Augmneted Files = ', (len(xml_path)*iterations))
 print('='*60)
 #%%
 sometimes = lambda aug: iaa.Sometimes(0.97, aug)
-pos = np.random.randint(0, 9)
 ''' Geometrical Data Aug'''
 seq_1 = iaa.Sequential(
         [
         # apply only 2 of the following
-        iaa.SomeOf(2, [
-            sometimes(iaa.Fliplr(0.9)),
-            sometimes(iaa.Flipud(0.9)),
+        iaa.SomeOf(3, [
+            sometimes(iaa.Fliplr(0.99)),
+            sometimes(iaa.Flipud(0.99)),
             sometimes(iaa.Affine(scale={"x": (0.8, 1.2), "y": (0.8, 1.2)}, order=1, backend="cv2")),
             sometimes(iaa.Affine(translate_percent={"x": (-0.2, 0.2), "y": (-0.2, 0.2)}, order=1, backend="cv2")),
-            sometimes(iaa.Affine(rotate=(-25, 25), order=1, backend="cv2")),
-            sometimes(iaa.Affine(shear=(-8, 8), order=1, backend="cv2")),
+            sometimes(iaa.Affine(rotate=(-90, 90), order=1, backend="cv2")),
+            sometimes(iaa.Affine(shear=(-25, 25), order=1, backend="cv2")),
+            sometimes(iaa.ElasticTransformation(alpha=50.0, sigma=5.0)),
+            # radomly crop some part of image to add more BG class in data
+            sometimes(iaa.CropToFixedSize(width=512, height=512, position='uniform')),
             iaa.OneOf([
             sometimes(iaa.KeepSizeByResize(
                                  iaa.Crop(percent=(0.05, 0.25), keep_size=False),
                                  interpolation='linear')),
             sometimes(iaa.KeepSizeByResize(
-                                iaa.CropToFixedSize(width=512, height=512, position=positions[pos]),
+                                iaa.CropAndPad(percent=(0.05, 0.25), pad_mode=["constant", "edge"], pad_cval=(0, 255)),
                                 interpolation="linear"))
             ]),
             ], random_order=True),
