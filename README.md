@@ -54,9 +54,6 @@ Augumenting Dataset (iteration 3of3): 100%|████████████�
 4. xmltodict
 5. dicttoxml
 
-### Note:
-_____
-Repo takes about 0.2~0.5 second(s) to read and write one augumented image and file, for fast processing comment the plotting lines in the code.
 
 ## Follwing are some examples of input images with their b_boxes drawn on them and their corresponding augumented outputs.
 
